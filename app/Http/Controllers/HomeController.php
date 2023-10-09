@@ -27,4 +27,8 @@ class HomeController extends Controller
         $welcomeMessage = "Ceci est un message de bienvenue";
         return Inertia::render('Florence', ['msg' => $welcomeMessage]);
     }
+
+    public function courses(): Response {
+        return Inertia::render('Courses/CoursesIndex');
+    }
 }

@@ -28,4 +28,5 @@ use Inertia\Inertia;
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/florence', [HomeController::class, 'florence'])->name('thomas');
+    Route::get('/courses', [HomeController::class, 'courses'])->name('formations');
 });

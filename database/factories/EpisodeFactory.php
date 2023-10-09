@@ -20,7 +20,7 @@ class EpisodeFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraphs(3,true),
-            'video_url' => 'mavideo.flo' . rand(10,255),
+            'video_url' => 'mavideo.flo/' . rand(10,255),
             'course_id' => Course::all()->random()->id
         ];
     }
