@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -29,6 +30,9 @@ class HomeController extends Controller
     }
 
     public function courses(): Response {
-        return Inertia::render('Courses/CoursesIndex');
+        $courses = Course::all();
+        return Inertia::render('Courses/CoursesIndex', [
+            'courses' => $courses
+        ]);
     }
 }
