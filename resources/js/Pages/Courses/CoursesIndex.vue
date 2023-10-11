@@ -1,9 +1,20 @@
 <script setup>
+import { ref } from 'vue';
 import AppLayout from './../../Layouts/AppLayout.vue';
+import CourseModal from "./CourseModal.vue";
 
+const selectedCourse = ref(null);
+
+const showModal = ref(false);
+
+const selectCourse = (course) => {
+    selectedCourse.value = course;
+    showModal.value = true;
+}
 const props = defineProps({
     courses: Array
 })
+
 </script>
 
 
@@ -22,7 +33,9 @@ const props = defineProps({
                         <ul class="py-4">
                             <li class="py-6 mx-8 px-6 my-2 bg-white rounded shadow" v-for="course in courses">
                                 <div class="hover:font-bold text-3xl text">{{ course.title }}</div>
+                                <div class="text-sm text-gray-400">Mis en ligne par {{ course.user.name }}, {{ course.episodes_count }} épisodes</div>
                                 <div class="text-sm text-slate-700">{{ course.description }}</div>
+                                <button id="showModal" @click="selectCourse(course)">Voir les détails</button>
                                 <!-- <div class="bg-sky-600 text-white px-2 py-2 mx-80 my-2 text-center hover:bg-sky-800">Voir la formation</div> -->
                             </li>
                         </ul>
@@ -34,4 +47,7 @@ const props = defineProps({
             </div>
         </div>
     </AppLayout>
+<Teleport to="body">
+    <CourseModal :show="showModal" :selectedCourse="selectedCourse" @close= "showModal = false"/>
+</Teleport>
 </template>
