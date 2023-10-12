@@ -32,15 +32,19 @@ class HomeController extends Controller
     public function courses(): Response {
         // $courses = Course::all();
         $courses = Course::with('user')->withCount('episodes')->get();
-        return Inertia::render('Courses/CoursesIndex', [
+        return Inertia::render('Courses/Index/CoursesIndex', [
             'courses' => $courses
         ]);
     }
 
     public function course($id): Response {
         $course = Course::find($id);
-        return Inertia::render('Courses/CoursesIndex', [
+        return Inertia::render('Courses/Index/CoursesIndex', [
             'selectedCourse' => $course,
         ]);
+    }
+
+    public function courseCreate(): Response {
+        return Inertia::render('Courses/Create/CourseCreate');
     }
 }

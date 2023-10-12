@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import AppLayout from './../../Layouts/AppLayout.vue';
+import AppLayout from './../../../Layouts/AppLayout.vue';
 import CourseModal from "./CourseModal.vue";
+import { Link } from '@inertiajs/vue3'
 
 const selectedCourse = ref(null);
 
@@ -14,7 +15,6 @@ const selectCourse = (course) => {
 const props = defineProps({
     courses: Array
 })
-
 </script>
 
 
@@ -28,12 +28,16 @@ const props = defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="container my-6 mx-auto">
+                    <Link class="px-4 py-4 rounded-full bg-blue-100" :href="route('course.create')">Créer une nouvelle formation</Link>
+                </div>
                 <div class="bg-blue-200 rounded-3xl">
                     <div class="p-8" v-if="courses.length > 0">
                         <ul class="py-4">
                             <li class="py-6 mx-8 px-6 my-2 bg-white rounded shadow" v-for="course in courses">
                                 <div class="hover:font-bold text-3xl text">{{ course.title }}</div>
-                                <div class="text-sm text-gray-400">Mis en ligne par {{ course.user.name }}, {{ course.episodes_count }} épisodes</div>
+                                <div class="text-sm text-gray-400">Mis en ligne par {{ course.user.name }}, {{
+                                    course.episodes_count }} épisodes</div>
                                 <div class="text-sm text-slate-700">{{ course.description }}</div>
                                 <button id="showModal" @click="selectCourse(course)">Voir les détails</button>
                                 <!-- <div class="bg-sky-600 text-white px-2 py-2 mx-80 my-2 text-center hover:bg-sky-800">Voir la formation</div> -->
@@ -47,7 +51,7 @@ const props = defineProps({
             </div>
         </div>
     </AppLayout>
-<Teleport to="body">
-    <CourseModal :show="showModal" :selectedCourse="selectedCourse" @close= "showModal = false"/>
-</Teleport>
+    <Teleport to="body">
+        <CourseModal :show="showModal" :selectedCourse="selectedCourse" @close="showModal = false" />
+    </Teleport>
 </template>

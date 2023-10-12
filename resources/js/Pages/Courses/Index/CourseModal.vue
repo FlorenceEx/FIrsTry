@@ -1,4 +1,6 @@
 <script setup>
+import FormSection from '@/Components/FormSection.vue';
+
 const props = defineProps({
   show: Boolean,
   selectedCourse: Object,
@@ -14,7 +16,16 @@ const props = defineProps({
         </div>
 
         <div class="modal-body">
-          <slot name="body">{{ selectedCourse.description }}</slot>
+          <FormSection>
+            <template #title>
+              {{ selectedCourse.title }}
+            </template>
+            <template #form>
+              <div class="col-span-6 sm:col-span-6">
+              {{ selectedCourse.description }}
+            </div>
+            </template>
+          </FormSection>
         </div>
 
         <div class="modal-footer">
