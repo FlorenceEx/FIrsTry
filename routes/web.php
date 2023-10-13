@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/courses/{id}', [HomeController::class, 'course'])->name('formation');
     // renvoie sur /courses à cause de href
     // Route::get('/courses/create', [HomeController::class, 'courseCreate'])->name('course.create');
+    // Create Course
     Route::get('/courses_create', [HomeController::class, 'courseCreate'])->name('course.create');
-    
+    // Store Course    
+    Route::post('/courses_create', [HomeController::class, 'courseStore'])->name('course.store');    
 });

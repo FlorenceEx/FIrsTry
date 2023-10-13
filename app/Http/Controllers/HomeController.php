@@ -6,6 +6,8 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {    
@@ -46,5 +48,26 @@ class HomeController extends Controller
 
     public function courseCreate(): Response {
         return Inertia::render('Courses/Create/CourseCreate');
+    }
+
+    public function courseStore(Request $request) {
+        // Valider les paramètres envoyés
+        $validated = $request->validate([
+            'title' => 'required|string|max:99',
+            'description' => 'required|string'
+        ]);
+
+        // Enregistrer
+        //$userId = Auth::id(); une première méthode 
+        $userId = $request->user()->id;
+        $newCourse = new Course();
+        $newCourse->title = $request->title;
+        $newCourse->description = $request->description;
+        $newCourse->user_id = $userId;
+        $newCourse->save();
+
+        return Redirect::back()->with('message', 'Formation créée !');
+
+
     }
 }

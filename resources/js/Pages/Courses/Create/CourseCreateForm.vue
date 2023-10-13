@@ -9,6 +9,11 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const submitForm = () => {
     console.log('Form submitted !')
+
+    form.post(route('course.store'), {
+        //empêche de revenir en haut de la page au rechargement
+        preserveScroll: true
+    })
 }
 const form = useForm({
     title: '',
