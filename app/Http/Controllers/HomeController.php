@@ -67,7 +67,13 @@ class HomeController extends Controller
         $newCourse->save();
 
         return Redirect::back()->with('message', 'Formation créée !');
+    }
 
-
+    // passer l'ID de la formation à la fonction
+    // elle fera une in jection de dépendance qui ne retournera que la formation demandée
+    public function courseEdit(Course $course) {
+        return Inertia::render('Courses/Edit/CourseEdit', [
+            'course' => $course
+        ]);
     }
 }

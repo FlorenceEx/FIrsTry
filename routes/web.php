@@ -36,4 +36,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/courses_create', [HomeController::class, 'courseCreate'])->name('course.create');
     // Store Course    
     Route::post('/courses_create', [HomeController::class, 'courseStore'])->name('course.store');    
+    Route::get('/courses_edit/{course}', [HomeController::class, 'courseEdit'])->name('course.edit');    
 });

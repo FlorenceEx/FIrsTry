@@ -35,7 +35,7 @@ const props = defineProps({
                     <div class="p-8" v-if="courses.length > 0">
                         <ul class="py-4">
                             <li class="py-6 mx-8 px-6 my-2 bg-white rounded shadow" v-for="course in courses">
-                                <div class="hover:font-bold text-3xl text">{{ course.title }}</div>
+                                <div class="hover:font-bold text-3xl text"><Link :href="route('course.edit', {course: course.id})">{{ course.title }}</Link></div>
                                 <div class="text-sm text-gray-400">Mis en ligne par {{ course.user.name }}, {{
                                     course.episodes_count }} épisodes</div>
                                 <div class="text-sm text-slate-700">{{ course.description }}</div>
