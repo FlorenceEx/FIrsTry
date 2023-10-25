@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -32,7 +33,8 @@ class HomeController extends Controller
     }
 
     public function movieTable() : Response {
-        return Inertia::render('MovieTable');
+        $movies = Movie::all();
+        return Inertia::render('MovieTable', ['movies' => $movies]);
     }
 
     public function courses(): Response {
