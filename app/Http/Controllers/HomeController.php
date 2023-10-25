@@ -31,6 +31,10 @@ class HomeController extends Controller
         return Inertia::render('Florence', ['msg' => $welcomeMessage]);
     }
 
+    public function movieTable() : Response {
+        return Inertia::render('MovieTable');
+    }
+
     public function courses(): Response {
         // $courses = Course::all();
         $courses = Course::with('user')->withCount('episodes')->get();
