@@ -4,6 +4,11 @@ import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
 
 const showModal = ref(false);
+const selectedMovie = ref(null);
+const selectMovie = (movie) => {
+    selectedMovie.value = movie;
+    showModal.value = true;
+}
 const props = defineProps({
     movies: Array,
 })
@@ -36,6 +41,7 @@ const props = defineProps({
                     <tbody>
                         <tr v-for="movie in movies">
                             <td
+                                @click="selectMovie(movie)"
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-600">
                                 {{ movie.titre }}</td>
                             <td
@@ -47,14 +53,16 @@ const props = defineProps({
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> 
         </div>
-        <div>
-        <button @click="showModal = true">Ouvrir la fenêtre modale</button>
         <Modal :show="showModal" @close="showModal = false">
-            <h3>Ma fenêtre modale</h3>
-            <p>Ceci est le contenu de ma fenêtre modale (j'ai écrit "fenêtre modale" beaucoup trop de fois en 5 lignes).
-            </p>
+            <div v-if="selectedMovie">
+                <h3>{{selectedMovie.titre}}</h3>
+                <p>{{selectedMovie.realisateur}}</p>
+                <p>{{selectedMovie.synopsis}}</p>
+            </div>
+            <div v-else>
+                <p>Oups...</p>
+            </div>
         </Modal>
-    </div>
 </AppLayout></template>
