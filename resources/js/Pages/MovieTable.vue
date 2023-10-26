@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
+import FormSection from '@/Components/FormSection.vue';
 
 const showModal = ref(false);
 const selectedMovie = ref(null);
@@ -56,13 +57,21 @@ const props = defineProps({
             </div> 
         </div>
         <Modal :show="showModal" @close="showModal = false">
-            <div v-if="selectedMovie">
-                <h3>{{selectedMovie.titre}}</h3>
-                <p>{{selectedMovie.realisateur}}</p>
-                <p>{{selectedMovie.synopsis}}</p>
+<FormSection>
+    <template #title>
+            {{selectedMovie.titre}}
+        </template>
+        
+        <template #description>
+            A movie from {{ selectedMovie.realisateur }}
+        </template>
+
+        <template #form>
+            <div class="col-span-6">
+                <label for="name" class="block text-sm font-medium text-gray-700">Synopsis</label>
+                <input :value="selectedMovie.synopsis" type="text" id="name" name="name" class="mt-1 p-2 w-full">
             </div>
-            <div v-else>
-                <p>Oups...</p>
-            </div>
+        </template>
+</FormSection>
         </Modal>
 </AppLayout></template>
