@@ -40,6 +40,7 @@ const props = defineProps({
                                     course.episodes_count }} épisodes</div>
                                 <div class="text-sm text-slate-700">{{ course.description }}</div>
                                 <button id="showModal" @click="selectCourse(course)">Voir les détails</button>
+                                <div class="hover:font-bold text-xl text-red-600 text-right"><Link :href="route('course.delete', {course: course.id})">Supprimer</Link></div>
                                 <!-- <div class="bg-sky-600 text-white px-2 py-2 mx-80 my-2 text-center hover:bg-sky-800">Voir la formation</div> -->
                             </li>
                         </ul>

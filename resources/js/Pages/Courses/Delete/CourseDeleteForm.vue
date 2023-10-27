@@ -14,7 +14,7 @@ const props = defineProps({
 const submitForm = () => {
     console.log('Form submitted !')
 
-    form.put(route('course.update', {course: props.course.id}), {
+    form.delete(route('course.supprimer', {course: props.course.id}), {
         //empêche de revenir en haut de la page au rechargement
         preserveScroll: true
     })
@@ -49,8 +49,7 @@ const form = useForm({
             </template>
 
             <template #actions>
-                <ActionMessage class="mr-2" :on="form.recentlySuccessful">Formation mise à jour avec succès !</ActionMessage>
-                <PrimaryButton>Mettre à jour la formation</PrimaryButton>
+                <PrimaryButton>Supprimer la formation</PrimaryButton>
             </template>
         </FormSection>
 </template>
