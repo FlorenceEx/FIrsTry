@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
 import FormSection from '@/Components/FormSection.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 const showModal = ref(false);
 const selectedMovie = ref(null);
@@ -41,8 +42,7 @@ const props = defineProps({
                     </thead>
                     <tbody>
                         <tr v-for="movie in movies">
-                            <td
-                                @click="selectMovie(movie)"
+                            <td @click="selectMovie(movie)"
                                 class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-600">
                                 {{ movie.titre }}</td>
                             <td
@@ -54,24 +54,26 @@ const props = defineProps({
                         </tr>
                     </tbody>
                 </table>
-            </div> 
+            </div>
         </div>
         <Modal :show="showModal" @close="showModal = false">
-<FormSection>
-    <template #title>
-            {{selectedMovie.titre}}
-        </template>
-        
-        <template #description>
-            A movie from {{ selectedMovie.realisateur }}
-        </template>
+            <FormSection>
+                <template #title>
+                    <div class="text-indigo-500 font-bold">{{ selectedMovie.titre }}</div>
+                </template>
 
-        <template #form>
-            <div class="col-span-6">
-                <label for="name" class="block text-sm font-medium text-gray-700">Synopsis</label>
-                <input :value="selectedMovie.synopsis" type="text" id="name" name="name" class="mt-1 p-2 w-full">
-            </div>
-        </template>
-</FormSection>
+                <template #description>
+                    A movie from {{ selectedMovie.realisateur }}
+                </template>
+
+                <template #form>
+                    <div class="col-span-6">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Synopsis</label>
+                        <TextInput :value="selectedMovie.synopsis" id="name" type="text" class="mt-1 block w-full"
+                                    autofocus />
+                    </div>
+                </template>
+            </FormSection>
         </Modal>
-</AppLayout></template>
+    </AppLayout>
+</template>
