@@ -82,4 +82,17 @@ class HomeController extends Controller
             'course' => $course
         ]);
     }
+
+    public function courseUpdate(Course $course, Request $request){
+        $validated = $request->validate([
+            'title' => 'required|string|max:99',
+            'description' => 'required|string'
+        ]);
+
+        $course->title = $request -> title;
+        $course->description = $request -> description;
+        $course->save();
+
+        return Redirect::back()->with('message', 'Formation mise à jour !');
+    }
 }
