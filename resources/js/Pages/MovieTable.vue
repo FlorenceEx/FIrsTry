@@ -4,6 +4,7 @@ import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
 import FormSection from '@/Components/FormSection.vue';
 import TextInput from '@/Components/TextInput.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const showModal = ref(false);
 const selectedMovie = ref(null);
@@ -25,6 +26,11 @@ const props = defineProps({
             </h2>
         </template>
         <div class="py-12">
+            <div class="max-w-7xl mx-auto my-3 sm:px-6">
+                <PrimaryButton>
+                    Ajouter
+                </PrimaryButton>
+            </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-indigo-300 rounded-3xl">
                 <table class="border-collapse table-auto w-full text-sm">
                     <thead>
@@ -70,8 +76,14 @@ const props = defineProps({
                     <div class="col-span-6">
                         <label for="name" class="block text-sm font-medium text-gray-700">Synopsis</label>
                         <TextInput :value="selectedMovie.synopsis" id="name" type="text" class="mt-1 block w-full"
-                                    autofocus />
+                            autofocus />
                     </div>
+                </template>
+
+                <template #actions>
+                    <PrimaryButton>
+                        Enregistrer
+                    </PrimaryButton>
                 </template>
             </FormSection>
         </Modal>
