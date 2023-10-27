@@ -72,7 +72,7 @@ class HomeController extends Controller
         $newCourse->user_id = $userId;
         $newCourse->save();
 
-        return Redirect::back()->with('message', 'Formation créée !');
+        return Redirect::route('formations')->with('message', 'Formation créée !');
     }
 
     // passer l'ID de la formation à la fonction
@@ -93,7 +93,7 @@ class HomeController extends Controller
         $course->description = $request -> description;
         $course->save();
 
-        return Redirect::back()->with('message', 'Formation mise à jour !');
+        return Redirect::route('formations')->with('message', 'Formation mise à jour !');
     }
 
     public function courseDelete(Course $course, Request $request){
@@ -105,7 +105,7 @@ class HomeController extends Controller
     public function courseSupprimer(Course $course){
         $course->delete();
 
-        return redirect()->route('formations')
+        return Redirect::route('formations')
             ->with('success', 'Formation supprimée avec succès');
     }
 }
