@@ -1,10 +1,19 @@
 <script setup>
 import FormSection from '@/Components/FormSection.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { router } from '@inertiajs/vue3';
+
+const saveChange = (selectedCourse) => {
+  console.log("form submitted")
+  router.put(route('course.update', {course: props.selectedCourse.id}))
+}
 
 const props = defineProps({
   show: Boolean,
   selectedCourse: Object,
 })
+
 </script>
 
 <template>
@@ -12,29 +21,29 @@ const props = defineProps({
     <div v-if="show" class="modal-mask">
       <div class="container mx-auto my-auto px-8 py-6 bg-slate-50">
         <div class="modal-header">
-          <slot name="header">{{ selectedCourse.title}}</slot>
+          <slot name="header">Fiche formation : {{ selectedCourse.title }}</slot>
         </div>
 
         <div class="modal-body">
-          <FormSection>
+          <FormSection @submitted="saveChange(selectedCourse)">
             <template #title>
               {{ selectedCourse.title }}
             </template>
             <template #form>
               <div class="col-span-6 sm:col-span-6">
-              {{ selectedCourse.description }}
-            </div>
+                <InputLabel value="Description" />
+                <textarea class="w-full h-auto" v-model="selectedCourse.description"></textarea>
+              </div>
+            </template>
+            <template #actions>
+              <PrimaryButton>Enregistrer</PrimaryButton>
             </template>
           </FormSection>
         </div>
 
         <div class="modal-footer">
           <slot name="footer">
-            default footer
-            <button
-              class="modal-default-button"
-              @click="$emit('close')"
-            >OK</button>
+            <button class="modal-default-button" @click="$emit('close')">OK</button>
           </slot>
         </div>
       </div>

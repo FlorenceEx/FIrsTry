@@ -96,11 +96,6 @@ class HomeController extends Controller
         return Redirect::route('formations')->with('message', 'Formation mise à jour !');
     }
 
-    public function courseDelete(Course $course, Request $request){
-        return Inertia::render('Courses/Delete/CourseDelete', [
-            'course' => $course
-        ]);
-    }
 
     public function courseSupprimer(Course $course){
         $course->delete();
