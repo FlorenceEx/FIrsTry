@@ -38,8 +38,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     // Store Course    
     Route::post('/courses_store', [HomeController::class, 'courseStore'])->name('course.store');    
     Route::get('/courses_edit/{course}', [HomeController::class, 'courseEdit'])->name('course.edit');    
-    Route::put('/courses_edit/{course}', [HomeController::class, 'courseUpdate'])->name('course.update');    
-    //Route::get('/courses_delete/{course}', [HomeController::class, 'courseDelete'])->name('course.delete'); 
-    Route::get('/courses_delete/{course}', [HomeController::class, 'courseDelete'])->name('course.delete');  
+    Route::put('/courses_edit/{course}', [HomeController::class, 'courseUpdate'])->name('course.update'); 
     Route::delete('/courses_delete/{course}', [HomeController::class, 'courseSupprimer'])->name('course.supprimer');  
 });

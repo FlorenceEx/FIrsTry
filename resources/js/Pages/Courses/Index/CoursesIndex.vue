@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import AppLayout from './../../../Layouts/AppLayout.vue';
 import CourseModal from "./CourseModal.vue";
-import { Link } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3';
 
 const selectedCourse = ref(null);
 
@@ -11,6 +11,12 @@ const showModal = ref(false);
 const selectCourse = (course) => {
     selectedCourse.value = course;
     showModal.value = true;
+}
+
+const destroyCourse = (course) => {
+    if (confirm("Voulez-vous supprimer cette formation ?")) {
+        router.delete(route('course.supprimer', { course: course.id }))
+    }
 }
 const props = defineProps({
     courses: Array
@@ -29,19 +35,25 @@ const props = defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="container my-6 mx-auto">
-                    <Link class="px-4 py-4 rounded-full bg-blue-100" :href="route('course.create')">Créer une nouvelle formation</Link>
+                    <Link class="px-4 py-4 rounded-full bg-blue-100" :href="route('course.create')">Créer une nouvelle
+                    formation</Link>
                 </div>
                 <div class="bg-blue-200 rounded-3xl">
                     <div class="p-8" v-if="courses.length > 0">
                         <ul class="py-4">
                             <li class="py-6 mx-8 px-6 my-2 bg-white rounded shadow" v-for="course in courses">
-                                <div class="hover:font-bold text-3xl text"><Link :href="route('course.edit', {course: course.id})">{{ course.title }}</Link></div>
+                                <div class="hover:font-bold text-3xl text">
+                                    <Link :href="route('course.edit', { course: course.id })">{{ course.title }}</Link>
+                                </div>
                                 <div class="text-sm text-gray-400">Mis en ligne par {{ course.user.name }}, {{
                                     course.episodes_count }} épisodes</div>
                                 <div class="text-sm text-slate-700">{{ course.description }}</div>
-                                <button id="showModal" @click="selectCourse(course)">Voir les détails</button>
-                                <div class="hover:font-bold text-xl text-red-600 text-right"><Link :href="route('course.delete', {course: course.id})">Supprimer</Link></div>
-                                <!-- <div class="bg-sky-600 text-white px-2 py-2 mx-80 my-2 text-center hover:bg-sky-800">Voir la formation</div> -->
+                                <div class="flex justify-between">
+                                    <button id="showModal" @click="selectCourse(course)">Voir les
+                                        détails</button>
+                                    <button id="deleteCourse" class="text-2xl text-red-600"
+                                        @click="destroyCourse(course)">Supprimer</button>
+                                </div>
                             </li>
                         </ul>
                     </div>
