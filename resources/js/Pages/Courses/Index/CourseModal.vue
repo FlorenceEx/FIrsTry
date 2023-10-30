@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { router } from '@inertiajs/vue3';
 
-const saveChange = (selectedCourse) => {
+const saveChange = () => {
   console.log("form submitted")
   router.put(route('course.update', {course: props.selectedCourse.id}))
 }
@@ -25,7 +25,7 @@ const props = defineProps({
         </div>
 
         <div class="modal-body">
-          <FormSection @submitted="saveChange(selectedCourse)">
+          <FormSection @submitted="saveChange()">
             <template #title>
               {{ selectedCourse.title }}
             </template>

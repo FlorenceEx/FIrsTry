@@ -5,7 +5,6 @@ import CourseModal from "./CourseModal.vue";
 import { Link, router } from '@inertiajs/vue3';
 
 const selectedCourse = ref(null);
-
 const showModal = ref(false);
 
 const selectCourse = (course) => {
@@ -18,6 +17,7 @@ const destroyCourse = (course) => {
         router.delete(route('course.supprimer', { course: course.id }))
     }
 }
+
 const props = defineProps({
     courses: Array
 })
