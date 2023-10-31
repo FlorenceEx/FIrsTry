@@ -2,37 +2,45 @@
 import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { router } from '@inertiajs/vue3';
-
-const saveChange = () => {
-  console.log("form submitted")
-  router.put(route('course.update', {course: props.selectedCourse.id}))
-}
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
   show: Boolean,
   selectedCourse: Object,
 })
 
+const submitForm = () => {
+    console.log('Form submitted !')
+
+    form.put(route('course.update', {course: props.selectedCourse.id}), {
+        //empêche de revenir en haut de la page au rechargement
+        preserveScroll: true
+    })
+}
+
+const form = useForm({
+    title: props.selectedCourse.title,
+    description: props.selectedCourse.description
+})
 </script>
 
 <template>
-  <Transition name="modal">
-    <div v-if="show" class="modal-mask">
+  <Transition name="modal"> 
+    <div v-if="show && selectedCourse" class="modal-mask">
       <div class="container mx-auto my-auto px-8 py-6 bg-slate-50">
         <div class="modal-header">
           <slot name="header">Fiche formation : {{ selectedCourse.title }}</slot>
         </div>
 
         <div class="modal-body">
-          <FormSection @submitted="saveChange()">
+          <FormSection @submitted="submitForm()">
             <template #title>
               {{ selectedCourse.title }}
             </template>
             <template #form>
               <div class="col-span-6 sm:col-span-6">
                 <InputLabel value="Description" />
-                <textarea class="w-full h-auto" v-model="selectedCourse.description"></textarea>
+                <textarea class="w-full h-auto" v-model="form.description"></textarea>
               </div>
             </template>
             <template #actions>
