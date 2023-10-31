@@ -2,6 +2,7 @@
 import FormSection from '@/Components/FormSection.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { useForm } from '@inertiajs/vue3';
 
 
@@ -42,7 +43,8 @@ const form = useForm({
               </div>
             </template>
             <template #actions>
-              <PrimaryButton @click="submitForm() ; $emit('saved')">Enregistrer</PrimaryButton>
+              <PrimaryButton @click="submitForm() ; $emit('close')">Enregistrer</PrimaryButton>
+              <SecondaryButton @click="$emit('close')">Annuler</SecondaryButton>
             </template>
           </FormSection>
         </div>
