@@ -93,7 +93,8 @@ class HomeController extends Controller
         $course->description = $request -> description;
         $course->save();
 
-        return Redirect::route('formations')->with('message', 'Formation mise à jour !');
+        //return Redirect::route('formations')->with('message', 'Formation mise à jour !');
+        return Redirect::back();
     }
 
 

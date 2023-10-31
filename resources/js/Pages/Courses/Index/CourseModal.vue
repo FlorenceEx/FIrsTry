@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm } from '@inertiajs/vue3';
 
+
 const props = defineProps({
   show: Boolean,
   selectedCourse: Object,
@@ -12,10 +13,7 @@ const props = defineProps({
 const submitForm = () => {
     console.log('Form submitted !')
 
-    form.put(route('course.update', {course: props.selectedCourse.id}), {
-        //empêche de revenir en haut de la page au rechargement
-        preserveScroll: true
-    })
+    form.put(route('course.update', {course: props.selectedCourse.id}))
 }
 
 const form = useForm({
@@ -33,7 +31,7 @@ const form = useForm({
         </div>
 
         <div class="modal-body">
-          <FormSection @submitted="submitForm()">
+          <FormSection>
             <template #title>
               {{ selectedCourse.title }}
             </template>
@@ -44,16 +42,11 @@ const form = useForm({
               </div>
             </template>
             <template #actions>
-              <PrimaryButton>Enregistrer</PrimaryButton>
+              <PrimaryButton @click="submitForm() ; $emit('saved')">Enregistrer</PrimaryButton>
             </template>
           </FormSection>
         </div>
 
-        <div class="modal-footer">
-          <slot name="footer">
-            <button class="modal-default-button" @click="$emit('close')">OK</button>
-          </slot>
-        </div>
       </div>
     </div>
   </Transition>

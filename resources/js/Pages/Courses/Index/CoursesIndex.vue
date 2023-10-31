@@ -65,6 +65,6 @@ const props = defineProps({
         </div>
     </AppLayout>
     <Teleport to="body">
-        <CourseModal v-if="selectedCourse" :show="showModal" :selectedCourse="selectedCourse" @close="showModal = false" />
+        <CourseModal v-if="selectedCourse" :show="showModal" :selectedCourse="selectedCourse"  @saved="showModal = false"/>
     </Teleport>
 </template>
