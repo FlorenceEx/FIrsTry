@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -75,13 +76,7 @@ class HomeController extends Controller
         return Redirect::route('formations')->with('message', 'Formation créée !');
     }
 
-    // passer l'ID de la formation à la fonction
-    // elle fera une in jection de dépendance qui ne retournera que la formation demandée
-    public function courseEdit(Course $course) {
-        return Inertia::render('Courses/Edit/CourseEdit', [
-            'course' => $course
-        ]);
-    }
+
 
     public function courseUpdate(Course $course, Request $request){
         $validated = $request->validate([
@@ -103,5 +98,18 @@ class HomeController extends Controller
 
         return Redirect::route('formations')
             ->with('success', 'Formation supprimée avec succès');
+    }
+
+    public function users(): Response {
+        $users =  User::query()
+        ->when(request()->input('search'),function($query, $search){
+            $query->where('name', 'like', "%{$search}%");
+        })
+        ->when(request()->has('column'), function($query){
+            $query->orderBy(request()->input('column'), request()->input('direction'));
+        })
+        ->paginate(10)
+        ->appends(request()->all());
+        return Inertia::render ('Classes/ClassesIndex', ['users' => $users, 'filters' => request()->only(['search', 'column', 'direction'])]);
     }
 }
