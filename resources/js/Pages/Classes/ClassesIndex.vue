@@ -17,6 +17,9 @@ const sort = (colonne) => {
     console.log(props.filters.direction)
     router.get('/users', {column: colonne, direction: props.filters.direction})
 }
+const selectUser = (user) => {
+    router.get('/users/'+user.id+'/edit')
+}
 
 
 const props = defineProps({
@@ -24,10 +27,7 @@ const props = defineProps({
     filters: Object
 })
 
-const userFilters = reactive({
-    column: props.filters.column,
-    direction: props.filters.direction,
-})
+
 
 </script>
 <template>
@@ -38,8 +38,8 @@ const userFilters = reactive({
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-slate-300">
-                <div class="bg-gradient-to-r from-lime-300 to-emerald-800">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-slate-300 rounded-3xl py-6">
+                <div>
                     <div v-if="users.data.length > 0">
                         <div class="flex justify-between mb-2">
                             <label>
@@ -70,7 +70,9 @@ const userFilters = reactive({
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-lg">
                                         {{ user.name }}</th>
                                     <td class="px-6 py-4">{{ user.email }}</td>
-                                    <td class="px-6 py-4">Edit</td>
+                                    <td class="px-6 py-4">
+                                        <button class="border-2 bg-blue-700 px-6 py-1 rounded-xl" @click="selectUser(user)">Edit</button>
+                                    </td>
                                     <td class="px-6 py-4">Delete</td>
                                 </tr>
                             </tbody>

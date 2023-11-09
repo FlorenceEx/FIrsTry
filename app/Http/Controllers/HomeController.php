@@ -112,4 +112,11 @@ class HomeController extends Controller
         ->appends(request()->all());
         return Inertia::render ('Classes/ClassesIndex', ['users' => $users, 'filters' => request()->only(['search', 'column', 'direction'])]);
     }
+
+    public function userEdit($id): Response {
+        $user = User::find($id);
+        return Inertia::render('Classes/UserIndex',[
+            'selectedUser' => $user
+        ]);
+    }
 }
