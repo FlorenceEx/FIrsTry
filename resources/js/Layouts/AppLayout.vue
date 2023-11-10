@@ -60,6 +60,9 @@ const logout = () => {
                                 <NavLink :href="route('users')" :active="route().current('users')">
                                     Classes
                                 </NavLink>
+                                <NavLink :href="route('eleves')" :active="route().current('eleves')">
+                                    Élèves
+                                </NavLink>
                             </div>
                         </div>
 
@@ -211,6 +214,9 @@ const logout = () => {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('users')" :active="route().current('users')">
                             Classes
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('eleves')" :active="route().current('eleves')">
+                            Élèves
                         </ResponsiveNavLink>
                     </div>
 

@@ -13,7 +13,16 @@ class EleveController extends Controller
      */
     public function index()
     {
-        //
+        $eleves =  Eleve::query()
+        ->when(request()->input('search'),function($query, $search){
+            $query->where('prenom', 'like', "%{$search}%");
+        })
+        ->when(request()->has('column'), function($query){
+            $query->orderBy(request()->input('column'), request()->input('direction'));
+        })
+        ->paginate(10)
+        ->appends(request()->all());
+        return $eleves;
     }
 
     /**
@@ -29,7 +38,13 @@ class EleveController extends Controller
      */
     public function store(StoreEleveRequest $request)
     {
-        //
+        $nEleve = new Eleve();
+        $nEleve->prenom = $request->prenom;
+        $nEleve->nom = $request->nom;
+        $nEleve->naissance = $request->naissance;
+        $nEleve->mail = $request->mail;
+        $nEleve->password = sha1($request->password);
+        $nEleve->save();
     }
 
     /**

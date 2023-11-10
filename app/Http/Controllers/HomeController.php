@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEleveRequest;
 use App\Models\Course;
+use App\Models\Eleve;
 use App\Models\Movie;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -118,5 +120,23 @@ class HomeController extends Controller
         return Inertia::render('Classes/UserIndex',[
             'selectedUser' => $user
         ]);
+    }
+
+    public function eleves(EleveController $eleveController): Response {
+        $eleves = $eleveController->index();
+        return Inertia::render('Eleves/ElevesIndex', [
+            'eleves' => $eleves,
+            'filters' => request()->only(['search', 'column', 'direction'])
+        ]);
+    }
+    
+    public function eleveNouveau(): Response {
+        return Inertia::render('Eleves/EleveForm');
+    }
+
+    public function eleveStore(StoreEleveRequest $request) {
+        $store = new EleveController;
+        $store->store($request);
+        return Redirect::route('eleves');
     }
 }

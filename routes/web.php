@@ -41,4 +41,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::delete('/courses_delete/{course}', [HomeController::class, 'courseSupprimer'])->name('course.supprimer');
     Route::get ('/users', [HomeController::class, 'users'])->name('users');
     Route::get ('/users/{id}/edit', [HomeController::class, 'userEdit'])->name('userEdit');
+    Route::get ('/eleves', [HomeController::class, 'eleves'])->name('eleves');
+    Route::get ('/eleve/new', [HomeController::class, 'eleveNouveau'])->name('eleveNouveau');
+    Route::post('/eleve/store', [HomeController::class, 'eleveStore'])->name('eleveStore');  
+
 });
