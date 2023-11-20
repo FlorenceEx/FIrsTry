@@ -139,4 +139,12 @@ class HomeController extends Controller
         $store->store($request);
         return Redirect::route('eleves');
     }
+
+    public function eleveEdit($id): Response {
+        $show = new EleveController;
+        $eleve = $show->show($id);
+        return Inertia::render('Eleves/EleveIndex', [
+            'eleve' => $eleve
+        ]);
+    }
 }

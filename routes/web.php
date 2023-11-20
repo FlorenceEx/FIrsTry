@@ -44,5 +44,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get ('/eleves', [HomeController::class, 'eleves'])->name('eleves');
     Route::get ('/eleve/new', [HomeController::class, 'eleveNouveau'])->name('eleveNouveau');
     Route::post('/eleve/store', [HomeController::class, 'eleveStore'])->name('eleveStore');  
+    Route::get('/eleve/{id}/edit', [HomeController::class, 'eleveEdit'])->name('eleveEdit');  
 
 });

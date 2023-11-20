@@ -22,6 +22,7 @@ const sort = (colonne) => {
 
 const selectEleve = (eleve) => {
     console.log(eleve.id)
+    router.get('/eleve/'+eleve.id+'/edit')
 }
 
 const storeEleve = () => {
