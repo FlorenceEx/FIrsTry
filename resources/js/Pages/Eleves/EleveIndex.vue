@@ -1,20 +1,24 @@
 <script setup>
+import FormSection from '@/Components/FormSection.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { router } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 
 const props = defineProps({
     eleve: Object
 })
-const form = reactive({
+const form = useForm({
     nom: props.eleve.nom,
     prenom: props.eleve.prenom,
     mail: props.eleve.mail,
 })
 
+
 const submitForm = () => {
     console.log("form submitted !")
+    console.log(form.prenom)
+    form.post(route("eleveUpdate", {eleve: props.eleve.id}))
 }
 </script>
 <template>
@@ -26,30 +30,31 @@ const submitForm = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gradient-to-bl from-fuchsia-600 to-blue-800 rounded-3xl py-6">
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="text-white ">
-                        <form>
-                            <div class="py-4">
-                                <label>Nom : </label>
-                                <br>
-                                <input class="text-black" v-model="form.nom" />
-                            </div>
-                            <div class="py-4">
-                                <label>Prénom : </label>
-                                <br>
-                                <input class="text-black" v-model="form.prenom" />
-                            </div>
-                            <div class="py-4">
-                                <label>Email : </label>
-                                <br>
-                                <input class="text-black" v-model="form.mail" />
-                            </div>
-                            <div class="flex justify-end">
-                                <PrimaryButton @click="submitForm()">Submit</PrimaryButton>
-                            </div>
-                        </form>
+                    <div class="text-white">
+                        <FormSection @submitted="submitForm()">
+                            <template #form>
+                                <div class="grid grid-rows-1">
+                                    <div class="p-2 m-2">
+                                        <label class="font-bold">Nom : </label>
+                                        <input class="text-black" type="text" v-model="form.nom" />
+                                    </div>
+                                    <div class="p-2 m-2">
+                                        <label class="font-bold">Prenom : </label>
+                                        <input class="text-black" type="text" v-model="form.prenom" />
+                                    </div>
+                                    <div class="p-2 m-2">
+                                        <label class="font-bold">Mail : </label>
+                                        <input class="text-black" type="text" v-model="form.mail" />
+                                    </div>
+                                </div>
+                            </template>
+                            <template #actions>
+                                <PrimaryButton>Enregistrer</PrimaryButton>
+                            </template>
+                        </FormSection>
                     </div>
                     <div class="text-white bg-pink-300">
-                        
+
                     </div>
                 </div>
             </div>

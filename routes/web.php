@@ -29,6 +29,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/movie_table', [HomeController::class, 'movieTable'])->name('movieTable');
     Route::get('/florence', [HomeController::class, 'florence'])->name('thomas');
+
+    
     Route::get('/courses', [HomeController::class, 'courses'])->name('formations');
     Route::get('/courses/{id}', [HomeController::class, 'course'])->name('formation');
     // renvoie sur /courses à cause de href
@@ -41,9 +43,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::delete('/courses_delete/{course}', [HomeController::class, 'courseSupprimer'])->name('course.supprimer');
     Route::get ('/users', [HomeController::class, 'users'])->name('users');
     Route::get ('/users/{id}/edit', [HomeController::class, 'userEdit'])->name('userEdit');
+    
+    
     Route::get ('/eleves', [HomeController::class, 'eleves'])->name('eleves');
     Route::get ('/eleve/new', [HomeController::class, 'eleveNouveau'])->name('eleveNouveau');
     Route::post('/eleve/store', [HomeController::class, 'eleveStore'])->name('eleveStore');  
     Route::get('/eleve/{id}/edit', [HomeController::class, 'eleveEdit'])->name('eleveEdit');  
+    Route::post('/eleve/{eleve}/update', [HomeController::class, 'eleveUpdate'])->name('eleveUpdate');  
 
 });

@@ -147,4 +147,20 @@ class HomeController extends Controller
             'eleve' => $eleve
         ]);
     }
+
+    public function eleveUpdate(Eleve $eleve, Request $request){
+        $validated = $request->validate([
+            'nom' => 'required|string',
+            'prenom' => 'required|string',
+            'mail' => 'required|string'
+        ]);
+
+        $eleve->nom = $request -> nom;
+        $eleve->prenom = $request -> prenom;
+        $eleve->mail = $request -> mail;
+        $eleve->save();
+
+        //return Redirect::route('formations')->with('message', 'Formation mise à jour !');
+        return Redirect::back();
+    }
 }
